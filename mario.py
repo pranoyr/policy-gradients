@@ -33,6 +33,7 @@ env = JoypadSpace(env, SIMPLE_MOVEMENT)
 env.seed(args.seed)
 torch.manual_seed(args.seed)
 
+device = torch.device(f"cuda:0" if opt.use_cuda else "cpu")
 
 class Policy(nn.Module):
 	def __init__(self):
@@ -80,14 +81,14 @@ class Policy(nn.Module):
 # 		return F.softmax(action_scores, dim=1)
 
 
-policy = Policy()
+policy = Policy().to(device)
 optimizer = optim.Adam(policy.parameters(), lr=1e-3)
 eps = np.finfo(np.float32).eps.item()
 
 
 def select_action(state):
 	state = state.copy()
-	state = torch.from_numpy(state).float().unsqueeze(0).permute(0, 3, 1, 2)
+	state = torch.from_numpy(state).float().unsqueeze(0).permute(0, 3, 1, 2).to(device)
 	probs = policy(state)
 	m = Categorical(probs)
 	action = m.sample()
