@@ -126,6 +126,7 @@ def main():
 			# env.render()
 			policy.rewards.append(reward)
 			ep_reward += reward
+			print(ep_reward)
 			if done:
 				print(f"finised episode at iteration {t}")
 				break
