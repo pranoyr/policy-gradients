@@ -80,14 +80,14 @@ class Policy(nn.Module):
 # 		return F.softmax(action_scores, dim=1)
 
 
-policy = Policy().cuda()
+policy = Policy()
 optimizer = optim.Adam(policy.parameters(), lr=1e-3)
 eps = np.finfo(np.float32).eps.item()
 
 
 def select_action(state):
 	state = state.copy()
-	state = torch.from_numpy(state).float().unsqueeze(0).permute(0, 3, 1, 2).cuda()
+	state = torch.from_numpy(state).float().unsqueeze(0).permute(0, 3, 1, 2)
 	probs = policy(state)
 	m = Categorical(probs)
 	action = m.sample()
