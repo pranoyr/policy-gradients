@@ -140,8 +140,8 @@ def main():
 		print(f"Running Reward : {running_reward}")
 		finish_episode()
 
-		state = {'model_state_dict': policy.state_dict()}
-		torch.save(state, './models/model.pth')
+		state_dict = {'model_state_dict': policy.state_dict()}
+		torch.save(state_dict, './models/model.pth')
 
 		# if i_episode % args.log_interval == 0:
 		#     print('Episode {}\tLast reward: {:.2f}\tAverage reward: {:.2f}'.format(
