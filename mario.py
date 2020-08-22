@@ -33,7 +33,8 @@ env = JoypadSpace(env, SIMPLE_MOVEMENT)
 env.seed(args.seed)
 torch.manual_seed(args.seed)
 
-device = torch.device(f"cuda:0" if opt.use_cuda else "cpu")
+use_cuda = torch.cuda.is_available()
+device = torch.device(f"cuda:0" if use_cuda else "cpu")
 
 class Policy(nn.Module):
 	def __init__(self):
