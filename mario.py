@@ -40,6 +40,7 @@ class Policy(nn.Module):
 		self.layer = resnet18(pretrained=False)
 		self.layer.fc = nn.Sequential(
 			nn.Linear(512, 5))
+
 		self.saved_log_probs = []
 		self.rewards = []
 
@@ -118,7 +119,7 @@ def main():
 	running_reward = 10
 	for i_episode in count(1):
 		state, ep_reward = env.reset(), 0
-		for t in range(1, 100000):  # Don't infinite loop while learning
+		for t in range(1, 200):  # Don't infinite loop while learning
 			action = select_action(state)
 			state, reward, done, _ = env.step(action)
 			# print(state)
