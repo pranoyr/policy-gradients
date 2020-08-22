@@ -119,7 +119,7 @@ def main():
 	running_reward = 10
 	for i_episode in count(1):
 		state, ep_reward = env.reset(), 0
-		for t in range(1, 200):  # Don't infinite loop while learning
+		for t in range(1, 500):  # Don't infinite loop while learning
 			action = select_action(state)
 			state, reward, done, _ = env.step(action)
 			# print(state)
@@ -135,6 +135,9 @@ def main():
 		running_reward = 0.05 * ep_reward + (1 - 0.05) * running_reward
 		print(f"Running Reward : {running_reward}")
 		finish_episode()
+
+		state = {'model_state_dict': policy.state_dict()}
+		torch.save(state, './models/model.pth')
 
 		# if i_episode % args.log_interval == 0:
 		#     print('Episode {}\tLast reward: {:.2f}\tAverage reward: {:.2f}'.format(
