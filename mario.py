@@ -125,7 +125,7 @@ def main():
 			state, reward, done, _ = env.step(action)
 			# print(state)
 			# if args.render:
-			env.render()
+			# env.render()
 			policy.rewards.append(reward)
 			ep_reward += reward
 			print(ep_reward)
