@@ -40,7 +40,7 @@ class Policy(nn.Module):
 		self.layer = resnet18(pretrained=False)
 		self.layer.fc = nn.Sequential(
 			nn.Linear(512, 5))
-
+			
 		self.saved_log_probs = []
 		self.rewards = []
 
@@ -124,7 +124,7 @@ def main():
 			state, reward, done, _ = env.step(action)
 			# print(state)
 			# if args.render:
-			# env.render()
+			env.render()
 			policy.rewards.append(reward)
 			ep_reward += reward
 			print(ep_reward)
