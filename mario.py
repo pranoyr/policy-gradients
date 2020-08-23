@@ -119,9 +119,8 @@ def finish_episode():
 
 def main():
 	running_reward = 10
-	state, ep_reward = env.reset(), 0
 	for i_episode in count(1):
-		# state, ep_reward = env.reset(), 0
+		state, ep_reward = env.reset(), 0
 		for t in range(1, 500):  # Don't infinite loop while learning
 			action = select_action(state)
 			state, reward, done, _ = env.step(action)
@@ -132,7 +131,6 @@ def main():
 			ep_reward += reward
 			print(ep_reward)
 			if done:
-				state, ep_reward = env.reset(), 0
 				print(f"finised episode at iteration {t}")
 				break
 
