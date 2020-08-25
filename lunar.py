@@ -110,8 +110,8 @@ def main():
 			action = select_action(state)
 			state, reward, done, _ = env.step(action)
 			# print(state)
-			# if args.render:
-			env.render()
+			if args.render:
+				env.render()
 			policy.rewards.append(reward)
 			ep_reward += reward
 			# if state[0] > 0.5:
