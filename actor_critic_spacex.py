@@ -74,13 +74,13 @@ class Policy(nn.Module):
         return action_prob, state_values
 
 
-model = Policy()
+model = Policy().cuda()
 optimizer = optim.Adam(model.parameters(), lr=3e-2)
 eps = np.finfo(np.float32).eps.item()
 
 
 def select_action(state):
-    state = torch.from_numpy(state).float()
+    state = torch.from_numpy(state).float().cuda()
     probs, state_value = model(state)
 
     # create a categorical distribution over the list of probabilities of actions
