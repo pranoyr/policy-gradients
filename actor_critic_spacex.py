@@ -118,12 +118,11 @@ def finish_episode():
     for (log_prob, value), R in zip(saved_actions, returns):
         advantage = R - value.item()
 
-        print(advantage)
         # calculate actor (policy) loss 
         policy_losses.append(-log_prob * advantage)
 
         # calculate critic (value) loss using L1 smooth loss
-        value_losses.append(F.smooth_l1_loss(value, torch.tensor([R.cuda()])))
+        value_losses.append(F.smooth_l1_loss(value, torch.tensor([R]).cuda()))
 
     # reset gradients
     optimizer.zero_grad()
