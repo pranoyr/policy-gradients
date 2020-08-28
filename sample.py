@@ -1,26 +1,3 @@
-import torch
-from torch.distributions import Categorical
-
-
-batch_size = 2
-
-while True:
-	preds = torch.tensor([[0.7,0.1,0.1,0.1]], dtype=torch.float)
-
-
-
-	m = Categorical(preds)
-	action = m.sample()
-	print(action)
-
-
-
-# labels = torch.tensor([[1,0,0,0],
-# 					  [0,1,0,0]], dtype=torch.long)
-				  
-
-# l = -torch.mean(torch.sum(labels * torch.log(preds), dim=1))
-# print(labels * torch.log(preds))
-# l = -torch.mean(torch.sum(labels.view(batch_size, -1) * torch.log(preds.view(batch_size, -1)), dim=1))
-
-# print(l)
+import gym
+import gym_foo
+env = gym.make('spacex-v0')
