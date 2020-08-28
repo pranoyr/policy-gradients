@@ -54,15 +54,15 @@ class Policy(nn.Module):
 
     def forward(self, x):
         x = self.affine1(x)
-        x = self.dropout(x)
+        # x = self.dropout(x)
         x = F.relu(x)
 
         x = self.affine2(x)
-        x = self.dropout2(x)
+        # x = self.dropout2(x)
         x = F.relu(x)
 
         x = self.affine3(x)
-        x = self.dropout3(x)
+        # x = self.dropout3(x)
         x = F.relu(x)
         action_scores = self.affine_last(x)
         return F.softmax(action_scores, dim=1)
