@@ -122,7 +122,7 @@ def finish_episode():
         policy_losses.append(-log_prob * advantage)
 
         # calculate critic (value) loss using L1 smooth loss
-        value_losses.append(F.smooth_l1_loss(value, torch.tensor([R].cuda())))
+        value_losses.append(F.smooth_l1_loss(value, torch.tensor([R.cuda()])))
 
     # reset gradients
     optimizer.zero_grad()
