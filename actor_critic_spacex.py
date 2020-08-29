@@ -24,6 +24,7 @@ parser.add_argument('--log-interval', type=int, default=10, metavar='N',
                     help='interval between training status logs (default: 10)')
 args = parser.parse_args()
 
+
 env = gym.make('spacex-v0')
 env.seed(args.seed)
 torch.manual_seed(args.seed)
@@ -74,13 +75,13 @@ class Policy(nn.Module):
         return action_prob, state_values
 
 
-model = Policy().cuda()
+model = Policy()
 optimizer = optim.Adam(model.parameters(), lr=3e-2)
 eps = np.finfo(np.float32).eps.item()
 
 
 def select_action(state):
-    state = torch.from_numpy(state).float().cuda()
+    state = torch.from_numpy(state).float()
     probs, state_value = model(state)
 
     # create a categorical distribution over the list of probabilities of actions
@@ -122,7 +123,7 @@ def finish_episode():
         policy_losses.append(-log_prob * advantage)
 
         # calculate critic (value) loss using L1 smooth loss
-        value_losses.append(F.smooth_l1_loss(value, torch.tensor([R]).cuda()))
+        value_losses.append(F.smooth_l1_loss(value, torch.tensor([R])))
 
     # reset gradients
     optimizer.zero_grad()
@@ -172,10 +173,6 @@ def main():
 
         # perform backprop
         finish_episode()
-
-        state_dict = {'model_state_dict': model.state_dict()}
-        torch.save(state_dict, './models/spacex.pth')
-
 
         print(running_reward)
 
